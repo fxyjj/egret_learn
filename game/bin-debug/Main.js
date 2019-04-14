@@ -40,18 +40,12 @@ var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
         var _this = _super.call(this) || this;
-        var group = new GroupRect();
-        _this.addChild(group);
-        group.createBlackRect();
-        group.addEventListener("gameOver", _this.gameOver, _this);
-        group.addEventListener("clickRight", _this.clickRight, _this);
+        _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.addStage, _this);
         return _this;
     }
-    Main.prototype.gameOver = function () {
-        console.log("gameOver");
-    };
-    Main.prototype.clickRight = function () {
-        console.log("clickRight");
+    Main.prototype.addStage = function () {
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.addStage, this);
+        var game = new Game(this);
     };
     return Main;
 }(egret.DisplayObjectContainer));

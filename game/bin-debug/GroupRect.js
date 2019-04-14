@@ -12,6 +12,7 @@ var GroupRect = (function (_super) {
     __extends(GroupRect, _super);
     function GroupRect() {
         var _this = _super.call(this) || this;
+        _this._currentRow = 0;
         _this._currentBlackRectIndex = 0;
         _this.createRects();
         return _this;
@@ -28,7 +29,7 @@ var GroupRect = (function (_super) {
     };
     GroupRect.prototype.onClickRect = function (evt) {
         evt.target.onRectClick();
-        if (evt.target.type == RectType.NONCLICKABLE) {
+        if (evt.target.type == RectType.NONCLICKABLE || this._currentRow != (Data.getRectRow() - 2)) {
             this.dispatchEventWith("gameOver");
         }
         else {
@@ -36,6 +37,7 @@ var GroupRect = (function (_super) {
         }
     };
     GroupRect.prototype.createBlackRect = function () {
+        this.init();
         var n = Math.random();
         if (n >= 0 && n < 0.25) {
             this._currentBlackRectIndex = 0;
@@ -50,6 +52,19 @@ var GroupRect = (function (_super) {
             this._currentBlackRectIndex = 3;
         }
         this._rects[this._currentBlackRectIndex].type = RectType.CLICKABLE;
+    };
+    GroupRect.prototype.init = function () {
+        for (var i = 0; i < 4; i++) {
+            this._rects[i].type = RectType.NONCLICKABLE;
+        }
+    };
+    GroupRect.prototype.move = function () {
+        this._currentRow++;
+        if (this._currentRow == Data.getRectRow()) {
+            this._currentRow = 0;
+            this.createBlackRect();
+        }
+        this.y = this._currentRow * Data.getRectWidth();
     };
     return GroupRect;
 }(egret.Sprite));

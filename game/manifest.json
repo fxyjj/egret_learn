@@ -9,10 +9,13 @@
 	],
 	"game": [
 		"bin-debug/Data.js",
+		"bin-debug/Game.js",
+		"bin-debug/GameOverPanel.js",
 		"bin-debug/GroupRect.js",
 		"bin-debug/Main.js",
 		"bin-debug/Platform.js",
 		"bin-debug/Rect.js",
-		"bin-debug/RectType.js"
+		"bin-debug/RectType.js",
+		"bin-debug/TimerPanel.js"
 	]
 }
